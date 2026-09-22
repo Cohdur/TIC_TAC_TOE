@@ -77,7 +77,15 @@ public class Game extends Player
 
     void resetBoard()
     {
-        saveGameResult();
+        resetBoard(true);
+    }
+
+    void resetBoard(boolean saveCurrentGame)
+    {
+        if(saveCurrentGame)
+        {
+            saveGameResult();
+        }
 
         if(getAssignWinner() == getSymbol_1())
         {

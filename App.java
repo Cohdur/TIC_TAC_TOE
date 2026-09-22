@@ -9,7 +9,12 @@ import java.io.IOException;
         super(playerSymbol, playerSymbol_2);
     }
 
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args)
+    {
+        GameGUI.main(args);
+    }
+
+    public static void runConsole(String[] args) throws IOException
     {
         final char YES = 'Y';
         final char NO = 'N';

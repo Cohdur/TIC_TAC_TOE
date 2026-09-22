@@ -217,6 +217,18 @@ public class CPU extends Game
                 CPU_Turn = false;
                 return 5; 
             }
+            if(board[1][0] == CPU_symbol && board[1][1] == CPU_symbol
+            && board[1][2] != other_symbol)
+            {
+                CPU_Turn = false;
+                return 6;
+            }
+            if(board[1][1] == CPU_symbol && board[1][2] == CPU_symbol
+            && board[1][0] != other_symbol)
+            {
+                CPU_Turn = false;
+                return 4;
+            }
             if(board[2][0] == CPU_symbol && board[2][2] == CPU_symbol
             && board[2][1] != other_symbol)
             {
@@ -249,6 +261,18 @@ public class CPU extends Game
             {
                 CPU_Turn = false;
                 return 5; 
+            }
+            if(board[1][0] == other_symbol && board[1][1] == other_symbol
+            && board[1][2] != CPU_symbol)
+            {
+                CPU_Turn = false;
+                return 6;
+            }
+            if(board[1][1] == other_symbol && board[1][2] == other_symbol
+            && board[1][0] != CPU_symbol)
+            {
+                CPU_Turn = false;
+                return 4;
             }
             if(board[2][0] == other_symbol && board[2][2] == other_symbol
             && board[2][1] != CPU_symbol)
@@ -341,19 +365,27 @@ public class CPU extends Game
                 return 7;
             }
 
-            outer :
+            int[] availableMoves = new int[9];
+            int availableMoveCount = 0;
+            for (int row = 0; row < board.length; row++)
             {
-                for (int row = 0; row < board.length; row++) {
-                    for (int col = 0; col < board[row].length; col++) {
-                        if (board[row][col] != CPU_symbol && board[row][col] != other_symbol) {
-                            randomInt = (row * 3 + col + 1); // Convert 2D index to 1-9 board position
-                            CPU_Turn = false;
-                            break outer; // Exit the loop once a valid position is found
-                        }
+                for (int col = 0; col < board[row].length; col++)
+                {
+                    if (board[row][col] != CPU_symbol && board[row][col] != other_symbol)
+                    {
+                        availableMoves[availableMoveCount++] = row * 3 + col + 1;
                     }
                 }
             }
-            return randomInt;
+
+            if(availableMoveCount > 0)
+            {
+                randomInt = availableMoves[random.nextInt(availableMoveCount)];
+                CPU_Turn = false;
+                return randomInt;
+            }
+
+            return 0;
             
     }
 
